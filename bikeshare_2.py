@@ -2,10 +2,11 @@ import time
 import pandas as pd
 import numpy as np
 
-CITY_DATA = { 'chicago': 'chicago.csv',
-              'new york city': 'new_york_city.csv',
-              'washington': 'washington.csv' }
+CITY_DATA = {'chicago': 'chicago.csv',
+             'new york city': 'new_york_city.csv',
+             'washington': 'washington.csv'}
 months = ['january', 'february', 'march', 'april', 'may', 'june']
+
 
 def get_filters():
     """
@@ -31,12 +32,11 @@ def get_filters():
         filter_month = input('Response not valid. Filter by month? Please enter y or n.\n')
         filter_month = filter_month.lower()
     if filter_month == 'y':
-    	while month not in months:
+        while month not in months:
             month = input('Please select a month from January to June:\n')
             month = month.lower()
     else:
-    	month = 'all'
-
+        month = 'all'
 
     # get user input for day of week (all, monday, tuesday, ... sunday)
     day = str()
@@ -47,11 +47,11 @@ def get_filters():
         filter_day = input('Response not valid. Filter by day? Please enter y or n.\n')
         filter_day = filter_day.lower()
     if filter_day == 'y':
-    	while day not in days:
-    		day = input('Please select a day of the week:\n')
-    		day = day.lower()
+        while day not in days:
+            day = input('Please select a day of the week:\n')
+            day = day.lower()
     else:
-    	day = 'all'
+        day = 'all'
 
     print('-'*40)
     return city, month, day
@@ -83,10 +83,10 @@ def load_data(city, month, day):
     if month != 'all':
         # use the index of the months list to get the corresponding int
         month = months.index(month) + 1
-        
+
         # filter by month to create the new dataframe
         df = df[df['Month'] == month]
-        
+
     # filter by day of week if applicable
     if day != 'all':
         # filter by day of week to create the new dataframe
@@ -176,7 +176,7 @@ def user_stats(df):
         print('\nBreakdown by Gender:')
         print(user_gender)
     except:
-    	print('\nNo Gender Data Available')
+        print('\nNo Gender Data Available')
 
     # Display earliest, most recent, and most common year of birth where available
     try:
@@ -185,7 +185,7 @@ def user_stats(df):
         print('\nMost Recent Birth Year:', birth_years.max())
         print('\nMost Common Birth Year:', birth_years.mode()[0])
     except:
-    	print('\nNo Birth Year Data Available')
+        print('\nNo Birth Year Data Available')
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
@@ -212,9 +212,9 @@ def main():
         display_data = input('\nWould you like to display individual trip data? (y or n)\n')
         while display_data == 'y':
             for x in data_range(df.ndim):
-            	print()
-            	print(df.iloc[x])
-            	display_data = input('\nDisplay more data? (y or n)\n')
+                print()
+                print(df.iloc[x])
+                display_data = input('\nDisplay more data? (y or n)\n')
 
         # Gives user the option to start over and analyze the data using new filter options.
         restart = input('\nWould you like to restart? (y or n)\n')
@@ -223,4 +223,4 @@ def main():
 
 
 if __name__ == "__main__":
-	main()
+    main()
